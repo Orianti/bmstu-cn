@@ -7,8 +7,11 @@
 #include <unistd.h>
 #include <time.h>
 
-#include "itoa.h"
-#include "socket.h"
+#include "itoa/itoa.h"
+
+#define SOCKET_PORT 8888
+
+#define BUF_SIZE 256
 
 static int sd;
 

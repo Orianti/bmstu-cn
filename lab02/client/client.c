@@ -4,7 +4,9 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "socket.h"
+#define SOCKET_PORT 8888
+
+#define BUF_SIZE 256
 
 static int sd;
 
