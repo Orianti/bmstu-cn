@@ -1,5 +1,5 @@
-#ifndef LAB02_ITOA_H
-#define LAB02_ITOA_H
+#ifndef ITOA_H
+#define ITOA_H
 
 #include <stdbool.h>
 

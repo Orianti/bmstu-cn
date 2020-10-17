@@ -25,16 +25,18 @@ int main(int argc, char *argv[])
 
 	const struct sockaddr_in server_sock = {
 		.sin_family = AF_INET,
-		.sin_port = htons(SOCKET_PORT),
 		.sin_addr.s_addr = INADDR_ANY,
+		.sin_port = htons(SOCKET_PORT),
 	};
 
-	if (sendto(sd, argv[1], strlen(argv[1]), 0, (struct sockaddr *) &server_sock, sizeof(server_sock)) == -1) {
+	size_t len = strlen(argv[1]);
+	ssize_t bytes = sendto(sd, argv[1], len, 0, (struct sockaddr *) &server_sock, sizeof(server_sock));
+	if (bytes == -1) {
 		perror("sendto");
 		close(sd);
 		return EXIT_FAILURE;
 	}
-	printf("sent message: %s\n", argv[1]);
+	printf("%ld out of %lu bytes were sent\n", bytes, len);
 	
 	close(sd);
 	return EXIT_SUCCESS;

@@ -1,11 +1,11 @@
 #include <arpa/inet.h>
-#include <stdarg.h>
 #include <signal.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 #include <time.h>
+#include <unistd.h>
 
 #include "itoa/itoa.h"
 
@@ -52,21 +52,21 @@ void process_client(void)
 	}
 	msg[size] = '\0';
 	
-	tprintf("receive message from %s:%d\n: %s", msg, inet_ntoa(client_sock.sin_addr), ntohs(client_sock.sin_port));
+	tprintf("received message from %s:%d: '%s'\n", inet_ntoa(client_sock.sin_addr), ntohs(client_sock.sin_port), msg);
 
 	char *endptr = msg;
-	const int decimal = strtoll(msg, &endptr, 10);
+	const int num = strtol(msg, &endptr, 10);
 	if (*msg == '\n' || *endptr) {
-		tprintf("message is not a decimal number\n");
+		tprintf("  message is not a decimal number\n");
 		return;
 	}
 	
-	tprintf("dec: %lld\n", decimal);
-	
-	tprintf("bin: %s\n", itoa(decimal, msg, 2));
-	tprintf("oct: %s\n", itoa(decimal, msg, 8));
-	tprintf("hex: %s\n", itoa(decimal, msg, 16));
-	tprintf("pentadec (base-15): %s\n", itoa(decimal, msg, 15));
+	tprintf("  dec: %lld\n", num);
+
+	tprintf("  bin: %s\n", itoa(num, msg, 2));
+	tprintf("  oct: %s\n", itoa(num, msg, 8));
+	tprintf("  hex: %s\n", itoa(num, msg, 16));
+	tprintf("  pentadec: %s\n", itoa(num, msg, 15));
 }
 
 int main(void)

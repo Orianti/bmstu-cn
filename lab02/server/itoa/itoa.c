@@ -8,14 +8,13 @@ void swap(char *a, char *b)
 }
 
 void reverse(char str[], int length) 
-{ 
+{
     	int start = 0;
     	int end = length - 1;
-    	
-    	while (start < end)
-    	{
-        	swap(str + start, str + end);
-        	++start;
+
+	while (start < end) {
+		swap(str + start, str + end);
+		++start;
 		--end;
 	}
 }
@@ -32,7 +31,9 @@ char *itoa(int num, char *str, int base)
 	}
 
 	if (num < 0) {
-		is_neg = true;
+		if (base == 10) {
+			is_neg = true;
+		}
 		num = -num;
 	}
 
