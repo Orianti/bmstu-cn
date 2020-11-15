@@ -11,7 +11,7 @@ from sys import stdin
 import time
 
 
-def parse_args():
+def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description='SMTP client')
 
     parser.add_argument('smtp', metavar='SMTP', type=str,
@@ -24,7 +24,7 @@ def parse_args():
     return parser.parse_args()
 
 
-def send_email(server, msg):
+def send_email(server: smtplib.SMTP_SSL, msg: EmailMessage) -> None:
     try:
         server.send_message(msg)
         print('[%s] email was sent successfully' % datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
@@ -33,12 +33,12 @@ def send_email(server, msg):
         exit(3)
 
 
-def sigint_handler(sig, frame):
+def sigint_handler(sig, frame) -> None:
     print('\nSending emails stopped')
     exit(0)
 
 
-def main():
+def main() -> None:
     args = parse_args()
 
     server = None
