@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/c,c++,pycharm,clion,python
-# Edit at https://www.toptal.com/developers/gitignore?templates=c,c++,pycharm,clion,python
+# Created by https://www.toptal.com/developers/gitignore/api/c,c++,clion,python,pycharm
+# Edit at https://www.toptal.com/developers/gitignore?templates=c,c++,clion,python,pycharm
 
 ### C ###
 # Prerequisites
@@ -386,4 +386,4 @@ dmypy.json
 # profiling data
 .prof
 
-# End of https://www.toptal.com/developers/gitignore/api/c,c++,pycharm,clion,python
+# End of https://www.toptal.com/developers/gitignore/api/c,c++,clion,python,pycharm
