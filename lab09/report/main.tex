@@ -1,0 +1,46 @@
+Подсеть №1: 192.168.15.0/24
+
+Подсеть №2: 192.168.16.0/24
+
+Подсеть №3: 192.168.17.0/24
+
+\section*{Задание 1}
+
+Предварительно был открыт порт маршрутизатора в сети, выполнена команда \code{\# show vlan} для просмотра списка существующих виртуальных сетей. Существующие виртуальные сети являются сетями по умолчанию.
+
+На хостах были настроены адреса интерфейсов.
+
+На коммутаторе были выполнены следующие команды для настройки vlan 10:
+\begin{lstlisting}[numbers=none]
+Switch#conf t
+Switch(config)#int vlan 10
+Switch(config-if)#int range fa0/1-2
+Switch(config-if-range)#switchport mode access
+Switch(config-if-range)#switchport access vlan 10
+\end{lstlisting}
+
+Аналогично были настроены vlan 20 и 30.
+
+Для настройки интерфейса GigabitEthernet0/1, к которому подключен маршрутизатор были выполнены следующие команды:
+\begin{lstlisting}[numbers=none]
+Switch(config)#int g0/1
+Switch(config-if)#switchport mode trunk
+\end{lstlisting}
+
+\section*{Задание 2}
+
+Для настройки маршрутизатора были выполнены следующие команды:
+\begin{lstlisting}[numbers=none]
+Router(config)#conf t
+Router(config)#int g0/0/0
+Router(config-if)#ip address 192.168.1.1 255.255.255.0
+Router(config-if)#int g0/0/0.1
+Router(config-subif)#encapsulation dot1q 10
+Router(config-subif)#ip address 192.168.15.254 255.255.255.0
+Router(config-if)#int g0/0/0.2
+Router(config-subif)#encapsulation dot1q 20
+Router(config-subif)#ip address 192.168.16.254 255.255.255.0
+Router(config-if)#int g0/0/0.3
+Router(config-subif)#encapsulation dot1q 30
+Router(config-subif)#ip address 192.168.17.254 255.255.255.0
+\end{lstlisting}
