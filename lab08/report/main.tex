@@ -1,0 +1,94 @@
+Подсеть №1: 192.168.15.0/24
+
+Подсеть №2: 192.168.16.0/24
+
+Подсеть №3: 192.168.17.0/24
+
+Подсеть №4: 192.168.18.0/24
+
+Подсеть №5 (в задании 2): 192.168.25.0/24
+
+\section*{Задание 1}
+
+Предварительно в CLI маршрутизаторов Router0, Router1 и Router2 были выполнены команды \code{\# show ip protocols} и \code{\# show ip rip database}  для проверки наличия уже существующих записей. Записей обнаружено не было.
+
+На хостах были настроены адреса интерфейсов и адреса шлюзов по умолчанию. На маршрутизаторах торах были установлены адреса интерфейсов.
+
+На маршрутизаторе Router0 были выполнены следующие команды:
+\begin{lstlisting}[numbers=none]
+Router# conf t
+Router(config)# route rip
+Router(config-router)# network 192.168.15.0
+Router(config-router)# network 192.168.16.0
+Router(config-router)# version 2
+\end{lstlisting}
+
+На маршрутизаторе Router1 были выполнены следующие команды:
+\begin{lstlisting}[numbers=none]
+Router# conf t
+Router(config)# route rip
+Router(config-router)# network 192.168.17.0
+Router(config-router)# network 192.168.18.0
+Router(config-router)# version 2
+\end{lstlisting}
+
+На маршрутизаторе Router2 были выполнены следующие команды:
+\begin{lstlisting}[numbers=none]
+Router# conf t
+Router(config)# route rip
+Router(config-router)# network 192.168.16.0
+Router(config-router)# network 192.168.17.0
+Router(config-router)# version 2
+\end{lstlisting}
+
+\section*{Задание 2}
+
+Предварительно были открыты порты всех маршрутизаторов в сети, в CLI маршрутизаторов были выполнены команды \code{\# show ip protocols} и \code{\# show ip rip database}  для проверки наличия уже существующих записей. Записей обнаружено не было.
+
+На хостах были настроены адреса интерфейсов и адреса шлюзов по умолчанию. На маршрутизаторах были установлены адреса интерфейсов.
+
+На маршрутизаторе Router0 были выполнены следующие команды:
+\begin{lstlisting}[numbers=none]
+Router# conf t
+Router(config)# route ospf 1
+Router(config-router)# network 192.168.15.0 0.0.0.255 area 1
+Router(config-router)# network 192.168.25.0 0.0.0.255 area 0
+\end{lstlisting}
+
+На маршрутизаторе Router1 были выполнены следующие команды:
+\begin{lstlisting}[numbers=none]
+Router# conf t
+Router(config)# route ospf 1
+Router(config-router)# network 192.168.16.0 0.0.0.255 area 2
+Router(config-router)# network 192.168.25.0 0.0.0.255 area 0
+\end{lstlisting}
+
+На маршрутизаторе Router2 были выполнены следующие команды:
+\begin{lstlisting}[numbers=none]
+Router# conf t
+Router(config)# route ospf 1
+Router(config-router)# network 192.168.17.0 0.0.0.255 area 3
+Router(config-router)# network 192.168.25.0 0.0.0.255 area 0
+\end{lstlisting}
+
+На маршрутизаторе Router3 были выполнены следующие команды:
+\begin{lstlisting}[numbers=none]
+Router# conf t
+Router(config)# route ospf 1
+Router(config-router)# network 192.168.18.0 0.0.0.255 area 4
+Router(config-router)# network 192.168.25.0 0.0.0.255 area 0
+\end{lstlisting}
+
+С помощью команды \code{\# show ip ospf neighbo} установлено, что Router3 определен как BDR, а Router2 --- как BDR. Все маршрутизаторы являются пограничными.
+
+Для настройки аутентификации на каждом маршрутизаторе выполнены следующие команды:
+\begin{lstlisting}[numbers=none]
+Router# conf t
+Router(config)# interface GigabitEthernet0/0/0
+Router(config-if)#ip ospf authentication-key qwerty
+Router(config)# interface GigabitEthernet0/0/1
+Router(config-if)#ip ospf authentication-key qwerty
+Router(config-if)#ex
+Router(config)#route ospf 1
+Router(config-router)#area 0 authentication
+\end{lstlisting}
